@@ -1,5 +1,9 @@
 import logging
+
+import asyncio
+
 from ragas.testset.graph import Node
+from ragas.testset.transforms.extractors import NERExtractor
 
 def document_splitter():
     sample_nodes = [Node(
@@ -10,5 +14,11 @@ def document_splitter():
     print(sample_nodes)
     return sample_nodes
 
+async def extract(nodes):
+    extractor = NERExtractor()
+    output = [await extractor.extract(node) for node in sample_nodes]
+    output[0]
+
 if __name__ == '__main__':
-    document_splitter()
+    sample_nodes = document_splitter()
+    output = asyncio.run(extract(sample_nodes))
